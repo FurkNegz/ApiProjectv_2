@@ -17,4 +17,22 @@
     <url-pattern>/hello</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>com.hello.Servlet.Register</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>com.hello.Servlet.Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
 </web-app>
