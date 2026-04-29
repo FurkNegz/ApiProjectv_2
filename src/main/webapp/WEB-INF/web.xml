@@ -35,4 +35,13 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>FruitSearch</servlet-name>
+    <servlet-class>com.hello.Servlet.FruitSearch</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FruitSearch</servlet-name>
+    <url-pattern>/fruit-search</url-pattern>
+  </servlet-mapping>
+
 </web-app>
