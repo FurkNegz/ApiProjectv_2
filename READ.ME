@@ -10,3 +10,31 @@ C:\Users\furka\Desktop\apiProjectv_2\src\main\webapp\WEB-INF\web.xml içerisine 
 
 docker acma mongo db -> docker start hello_mongo
 kontrol için         ->      docker ps
+
+
+
+
+POST update için öncelikle login gerekli alınan token ile
+{
+  "username": "furkan",
+  "password": "123",
+  "new_username": "furkan2",
+  "new_password": "456"
+} kişinin update işlemi yapılabilir http://localhost:8080/api/update ile.
+
+
+POST login için
+{
+  "username": "mercimek123",
+  "password": "corba123"
+
+} ya da
+{
+  "username": "mercimek",
+  "password": "corba"
+}
+
+fruit search için
+http://localhost:8080/api/fruit-search urli üzerinden
+bearer token ile
+{"fruit_name": "muz"} yap.
