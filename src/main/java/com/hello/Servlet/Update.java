@@ -1,7 +1,7 @@
 package com.hello.Servlet;
 
 import com.hello.classes.ErrorLogUtil;
-import com.hello.classes.PostgresUtil;
+import com.hello.classes.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -9,7 +9,6 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/update")
 public class Update extends HttpServlet {
 
     @Override
@@ -37,7 +36,7 @@ public class Update extends HttpServlet {
         }
 
         try {
-            boolean updated = PostgresUtil.updateUser(username, password, newUsername, newPassword);
+            boolean updated = UserDAO.updateUser(username, password, newUsername, newPassword);
 
             if (updated) {
                 resp.setStatus(HttpServletResponse.SC_OK);

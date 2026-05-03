@@ -1,7 +1,7 @@
 package com.hello.Servlet;
 
 import com.hello.classes.ErrorLogUtil;
-import com.hello.classes.PostgresUtil;
+import com.hello.classes.TokenDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -36,7 +36,7 @@ public class Logout extends HttpServlet {
         }
 
         try {
-            if (token != null) PostgresUtil.deleteToken(token);
+            if (token != null) TokenDAO.deleteToken(token);
         } catch (SQLException e) {
             ErrorLogUtil.errorLog(e,username,req);
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

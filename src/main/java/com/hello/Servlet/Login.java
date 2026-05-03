@@ -1,9 +1,10 @@
 package com.hello.Servlet;
 
 import com.hello.classes.ErrorLogUtil;
-import com.hello.classes.PostgresUtil;
+import com.hello.classes.TokenDAO;
+import com.hello.classes.UserDAO;
+import com.hello.entity.User;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
@@ -38,11 +39,11 @@ public class Login extends HttpServlet {
         if ("0:0:0:0:0:0:0:1".equals(ipAddress)) ipAddress = "127.0.0.1";
 
         try {
-            boolean valid = PostgresUtil.checkUser(username, password);
+            boolean valid = UserDAO.checkUser(username, password);
 
             if (valid) {
                 String token = java.util.UUID.randomUUID().toString();
-                PostgresUtil.saveToken(token, username, ipAddress);
+                TokenDAO.saveToken(token, username, ipAddress);
 
                 resp.setStatus(HttpServletResponse.SC_OK);
                 resp.getWriter().write("{"

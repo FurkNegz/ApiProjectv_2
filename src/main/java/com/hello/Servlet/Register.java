@@ -2,7 +2,8 @@ package com.hello.Servlet;
 
 import com.hello.classes.ErrorLogUtil;
 import com.hello.classes.PasswordUtil;
-import com.hello.classes.PostgresUtil;
+import com.hello.classes.UserDAO;
+import com.hello.entity.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -36,7 +37,7 @@ public class Register extends HttpServlet {
 
         try {
             String hashed = PasswordUtil.hashPassword(password);
-            boolean saved = PostgresUtil.insertUser(username, hashed);
+            boolean saved = UserDAO.insertUser(username, hashed);
 
             if (saved) {
                 resp.setStatus(HttpServletResponse.SC_CREATED);

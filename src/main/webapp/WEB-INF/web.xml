@@ -44,4 +44,14 @@
     <url-pattern>/fruit-search</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>Update</servlet-name>
+    <servlet-class>com.hello.Servlet.Update</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Update</servlet-name>
+    <url-pattern>/update</url-pattern>
+  </servlet-mapping>
+
+
 </web-app>

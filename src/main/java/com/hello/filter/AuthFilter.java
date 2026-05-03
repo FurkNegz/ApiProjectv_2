@@ -1,6 +1,6 @@
 package com.hello.filter;
 
-import com.hello.classes.PostgresUtil;
+import com.hello.classes.TokenDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.*;
@@ -33,12 +33,12 @@ public class AuthFilter implements Filter {
                 return;
             }
 
-            if (PostgresUtil.isTokenExpired(token)) {
+            if (TokenDAO.isTokenExpired(token)) {
                 sendUnauthorized(res, "Token süresi doldu");
                 return;
             }
 
-            String username = PostgresUtil.getUserNameByToken(token);
+            String username = TokenDAO.getUserNameByToken(token);
             if (username == null) {
                 sendUnauthorized( res, "Geçersiz token");
                 return;

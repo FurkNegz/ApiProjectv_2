@@ -1,7 +1,8 @@
 package com.hello.Servlet;
 
 import com.hello.classes.ErrorLogUtil;
-import com.hello.classes.PostgresUtil;
+import com.hello.classes.FruitDAO;
+import com.hello.classes.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -32,11 +33,11 @@ public class FruitSearch extends HttpServlet {
         }
 
         try {
-            int fruitId = PostgresUtil.getFruitIdByName(fruitName);
-            int userId = PostgresUtil.getUserIdByUsername(username);
+            int fruitId = FruitDAO.getFruitIdByName(fruitName);
+            int userId = UserDAO.getUserIdByUsername(username);
 
             if (fruitId != -1) {
-                PostgresUtil.recordFruitRequest(userId, fruitId);
+                FruitDAO.recordFruitRequest(userId, fruitId);
                 resp.setStatus(HttpServletResponse.SC_OK);
                 resp.getWriter().write("{\"status\": 200, \"message\": \"" + fruitName + " bulundu ve kaydedildi.\"}");
             } else {
