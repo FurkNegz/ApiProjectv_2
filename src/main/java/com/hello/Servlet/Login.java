@@ -1,5 +1,6 @@
 package com.hello.Servlet;
 
+import com.hello.classes.ErrorLogUtil;
 import com.hello.classes.PostgresUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -57,11 +58,18 @@ public class Login extends HttpServlet {
             }
 
         } catch (SQLException e) {
+            ErrorLogUtil.errorLog(e,username,req);
+
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resp.getWriter().write("{\"status\": 500, \"message\": \"Sunucu hatası\"}");
+            resp.getWriter().write("{\"status\": 500, \"message\": \"Giriş sırasında veritabanı hatası\"}");
+
+        }
+        catch (Exception e) {
+            ErrorLogUtil.errorLog(e,username,req);
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().write("{\"status\": 500, \"message\": \"Beklenmeyen sunucu hatası\"}");
         }
     }
-
     private String extractJson(String json, String key) {
         String search = "\"" + key + "\"";
         int idx = json.indexOf(search);

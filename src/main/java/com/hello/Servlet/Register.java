@@ -1,5 +1,6 @@
 package com.hello.Servlet;
 
+import com.hello.classes.ErrorLogUtil;
 import com.hello.classes.PasswordUtil;
 import com.hello.classes.PostgresUtil;
 import jakarta.servlet.ServletException;
@@ -27,6 +28,7 @@ public class Register extends HttpServlet {
         String password = extractJson(body, "password");
 
         if (username == null || password == null) {
+
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write("{\"status\": 400, \"message\": \"username ve password zorunlu\"}");
             return;
@@ -44,6 +46,7 @@ public class Register extends HttpServlet {
                 resp.getWriter().write("{\"status\": 409, \"message\": \"Kullanıcı adı zaten var\"}");
             }
         } catch (SQLException e) {
+            ErrorLogUtil.errorLog(e,username,req);
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             resp.getWriter().write("{\"status\": 500, \"message\": \"Sunucu hatası\"}");
         }

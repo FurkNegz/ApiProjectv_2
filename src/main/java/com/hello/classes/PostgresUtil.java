@@ -30,7 +30,28 @@ public class PostgresUtil {
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            throw e;
+        }
+    }
+    public static boolean updateUser(String username, String password,
+                                     String newUsername, String newPassword) throws SQLException {
+
+        boolean result = checkUser(username, password);
+        if (!result) {
             return false;
+        }
+
+        String hashedPass = PasswordUtil.hashPassword(newPassword);
+        String sql = "UPDATE public.user_table SET username = ?, password = ? WHERE username = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, newUsername);
+            stmt.setString(2, hashedPass);
+            stmt.setString(3, username);
+
+            return stmt.executeUpdate() > 0;
         }
     }
 

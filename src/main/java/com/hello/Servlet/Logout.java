@@ -1,5 +1,6 @@
 package com.hello.Servlet;
 
+import com.hello.classes.ErrorLogUtil;
 import com.hello.classes.PostgresUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ public class Logout extends HttpServlet {
             throws ServletException, IOException {
 
         String token = null;
+        String username = (String) req.getAttribute("username");
 
         // Bearer header'dan al
         String authHeader = req.getHeader("Authorization");
@@ -36,7 +38,9 @@ public class Logout extends HttpServlet {
         try {
             if (token != null) PostgresUtil.deleteToken(token);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ErrorLogUtil.errorLog(e,username,req);
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.getWriter().write("{\"status\": 500, \"message\": \"veritabanı hatası\"}");
         }
 
         // Cookie'yi temizle
